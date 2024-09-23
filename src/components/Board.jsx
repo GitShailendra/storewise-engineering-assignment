@@ -17,6 +17,9 @@ const Board = () => {
 
   // Save tasks to localStorage whenever tasks change
   useEffect(() => {
+    if(tasks.length <= 0){
+      return;
+    }
     localStorage.setItem('tasks', JSON.stringify(tasks));
     console.log("Saving tasks:", tasks); // Log tasks being saved
   }, [tasks]);
