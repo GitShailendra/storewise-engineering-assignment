@@ -1,24 +1,53 @@
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line react/prop-types
 const Task = ({ id }) => {
-
-  const [taskName, setTaskName] = useState(null);
+  const [taskName, setTaskName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTaskName, setNewTaskName] = useState('');
 
   useEffect(() => {
-    if (taskName === null) {
-      const storedName = sessionStorage.getItem(`task-${id}`);
-    
-      let taskName = `Task #${id+1}`;
-      if (!storedName) {
-        sessionStorage.setItem(`task-${id}`, `Task #${id+1}`);
-      }
+    const storedName = sessionStorage.getItem(`task-${id}`);
+    const defaultTaskName = `Task #${id + 1}`;
 
-      setTaskName(storedName || taskName );
+    if (!storedName) {
+      const defaultTaskName = `Task #${id + 1} - Created on ${new Date().toLocaleString()}`;
+      sessionStorage.setItem(`task-${id}`, defaultTaskName);
+      setTaskName(defaultTaskName);
+    } else {
+      setTaskName(storedName);
     }
-  }, [taskName, id]);
+  }, [id]);
 
-  return <>{taskName}</>;
+  const handleEdit = () => {
+    setIsEditing(true);
+    setNewTaskName(taskName);
+  };
+
+  const handleSave = () => {
+    sessionStorage.setItem(`task-${id}`, newTaskName);
+    setTaskName(newTaskName);
+    setIsEditing(false);
+  };
+
+  return (
+    <>
+      {isEditing ? (
+        <>
+          <input
+            type="text"
+            value={newTaskName}
+            onChange={(e) => setNewTaskName(e.target.value)}
+          />
+          <button onClick={handleSave}>Save</button>
+        </>
+      ) : (
+        <>
+          {taskName}
+          <button onClick={handleEdit}>Edit</button>
+        </>
+      )}
+    </>
+  );
 };
 
 export default Task;

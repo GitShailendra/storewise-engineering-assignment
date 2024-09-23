@@ -58,7 +58,84 @@ ul li:hover {
   margin: auto;
   overflow: hidden;
 }
+.list {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping to the next row */
+}
+
+.list li {
+  width: 30%; /* Each item will take 25% of the row, so 4 per row */
+  height: 200px;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center; /* Center the text inside the list item */
+  cursor: pointer;
+  list-style-type: none;
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9;
+}
+.list li button{
+  display: flex;
+  margin-top: 120px;
+  margin-right: 20px;
+  width: 80px;
+
+}
+.list li:nth-child(odd) {
+  background-color: #f0f0f0; /* Optional: alternating background for visibility */
+}
+.list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* input box */
+.input{
+  width: 100%;
+  margin-bottom: 60px;
+  padding: 5px 10px;
+  
+  display: flex;
+  justify-content: center;
+}
 
 /* Responsive styles code should be here */
 
 
+@media (max-width: 768px) {
+  .list li {
+    flex: 1 1 calc(50% - 20px); /* 2 cards per row on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .list li {
+    flex: 1 1 100%; /* 1 card per row on very small screens */
+  }
+}
